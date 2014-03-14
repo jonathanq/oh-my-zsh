@@ -129,6 +129,21 @@ prompt_hg() {
   fi
 }
 
+prompt_svn() {
+  local ref dirty
+  if [ $(in_svn) ]; then
+    ZSH_THEME_SVN_PROMPT_DIRTY='±'
+    dirty=$(svn_dirty)
+    ref=$(svn_prompt_info)
+    if [[ -n $dirty ]]; then
+      prompt_segment yellow black
+    else
+      prompt_segment green black
+    fi
+    echo -n "${ref/refs\/heads\//<U+2B60> }$dirty"
+  fi
+}
+
 # Dir: current working directory
 prompt_dir() {
   prompt_segment blue black '%~'
@@ -165,6 +180,7 @@ build_prompt() {
   prompt_dir
   prompt_git
   prompt_hg
+  prompt_svn
   prompt_end
 }
 

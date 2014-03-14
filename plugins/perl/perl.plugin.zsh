@@ -12,6 +12,13 @@ alias pbo='perlbrew off'
 alias pbs='perlbrew switch'
 alias pbu='perlbrew use'
 
+perlbrew-prompt () {
+  perlversion=$PERLBREW_PERL
+  [[ -z $perlversion ]] && perlversion="system perl"
+  echo $perlversion
+}
+
+
 # Perl ############
 
 # perldoc`
@@ -27,7 +34,7 @@ alias latest-perl='curl -s http://www.perl.org/get.html | perl -wlne '\''if (/pe
 
 # Functions #################################################################
 
-# newpl - creates a basic Perl script file and opens it with $EDITOR 
+# newpl - creates a basic Perl script file and opens it with $EDITOR
 newpl () {
 	# set $EDITOR to 'vim' if it is undefined
 	[[ -z $EDITOR ]] && EDITOR=vim
@@ -59,4 +66,3 @@ prep() { # [pattern] [filename unless STDOUT]
 say() {
     print "$1\n"
 }
-
